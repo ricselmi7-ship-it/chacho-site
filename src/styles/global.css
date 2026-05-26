@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #0C0C0C;
+  --color-bone: #F0EDE8;
+  --color-accent: #C8A97E;
+  --color-muted: #8a8580;
+
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-raw: "Bebas Neue", "Impact", "Arial Narrow", sans-serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    background-color: var(--color-ink);
+    color: var(--color-bone);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    min-height: 100vh;
+  }
+
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+
+  a {
+    transition: opacity 0.2s ease, color 0.2s ease;
+  }
+  a:hover {
+    opacity: 0.7;
+  }
+
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-ink);
+  }
+}

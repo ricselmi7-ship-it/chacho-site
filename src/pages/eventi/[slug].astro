@@ -1,0 +1,136 @@
+---
+import Layout from "~/layouts/Layout.astro";
+import eventiData from "~/data/eventi.json";
+import type { Evento } from "~/types";
+import { formatDataLunga, formatLuogo } from "~/lib/format";
+
+export async function getStaticPaths() {
+  const eventi = eventiData as Evento[];
+  return eventi.map((evento) => ({
+    params: { slug: evento.slug },
+    props: { evento },
+  }));
+}
+
+interface Props {
+  evento: Evento;
+}
+
+const { evento } = Astro.props;
+---
+
+<Layout title={`${evento.titolo} — Chacho`} description={evento.descrizione}>
+  <article>
+    <a
+      href="/eventi"
+      class="text-[10px] uppercase tracking-[0.3em] text-muted"
+    >
+      ← Tutti gli eventi
+    </a>
+
+    <header class="mt-6">
+      <p class="text-[10px] uppercase tracking-[0.3em] text-accent">
+        {formatDataLunga(evento.data)} · {evento.orario}
+      </p>
+      <h1
+        class="mt-3 font-raw text-4xl uppercase leading-[0.95] tracking-tight md:text-7xl"
+      >
+        {evento.titolo}
+      </h1>
+      {
+        evento.sottotitolo && (
+          <p class="mt-3 text-xs uppercase tracking-[0.3em] text-accent md:text-sm">
+            {evento.sottotitolo}
+          </p>
+        )
+      }
+      <p class="mt-4 text-[11px] uppercase tracking-[0.3em] text-bone/70">
+        {formatLuogo(evento)}
+      </p>
+    </header>
+
+    {
+      evento.immagine && (
+        <figure class="mt-10 overflow-hidden">
+          <img
+            src={evento.immagine}
+            alt={evento.titolo}
+            class="block h-auto w-full"
+            style="filter: contrast(1.05) saturate(0.92);"
+          />
+        </figure>
+      )
+    }
+
+    <div class="mt-12 grid gap-12 md:grid-cols-3">
+      <div class="md:col-span-2">
+        <p class="text-lg leading-relaxed text-bone/90">
+          {evento.descrizione}
+        </p>
+
+        {
+          evento.artisti && evento.artisti.length > 0 && (
+            <section class="mt-10">
+              <h2 class="text-[10px] uppercase tracking-[0.3em] text-muted">
+                Line-up
+              </h2>
+              <ul class="mt-3 space-y-1 font-raw text-2xl uppercase tracking-wide md:text-3xl">
+                {evento.artisti.map((a) => (
+                  <li>{a}</li>
+                ))}
+              </ul>
+            </section>
+          )
+        }
+
+        {
+          evento.partner && evento.partner.length > 0 && (
+            <section class="mt-10">
+              <h2 class="text-[10px] uppercase tracking-[0.3em] text-muted">
+                Partner
+              </h2>
+              <p class="mt-3 font-raw text-xl uppercase tracking-wide text-accent md:text-2xl">
+                {evento.partner.join(" × ")}
+              </p>
+            </section>
+          )
+        }
+
+        {
+          evento.tags && evento.tags.length > 0 && (
+            <div class="mt-10 flex flex-wrap gap-2">
+              {evento.tags.map((tag) => (
+                <span class="border border-white/10 px-3 py-1 text-[10px] uppercase tracking-[0.3em] text-muted">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )
+        }
+      </div>
+
+      <aside class="md:col-span-1">
+        {
+          evento.linkTicket ? (
+            <a
+              href={evento.linkTicket}
+              target="_blank"
+              rel="noopener"
+              class="block w-full border border-accent px-6 py-4 text-center text-[10px] uppercase tracking-[0.3em] text-accent transition-colors hover:bg-accent hover:text-ink"
+            >
+              Acquista biglietto
+            </a>
+          ) : evento.storico ? (
+            <p class="text-[10px] uppercase tracking-[0.3em] text-muted">
+              Evento concluso
+            </p>
+          ) : (
+            <p class="text-[10px] uppercase tracking-[0.3em] text-muted">
+              Biglietti in arrivo
+            </p>
+          )
+        }
+      </aside>
+    </div>
+  </article>
+</Layout>

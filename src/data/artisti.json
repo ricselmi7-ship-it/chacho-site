@@ -1,0 +1,52 @@
+[
+  {
+    "slug": "lena-volt",
+    "nome": "Lena Volt",
+    "ruolo": "DJ / Producer",
+    "bio": "Resident in vari club europei, suono techno asciutto e percussivo.",
+    "immagine": "/images/artists/lena-volt.jpg",
+    "link": "https://soundcloud.com/example"
+  },
+  {
+    "slug": "marco-ferro",
+    "nome": "Marco Ferro",
+    "ruolo": "DJ",
+    "bio": "Selector eclettico tra electro, IDM e breakbeat.",
+    "immagine": "/images/artists/marco-ferro.jpg"
+  },
+  {
+    "slug": "nyx",
+    "nome": "Nyx",
+    "ruolo": "Live act",
+    "bio": "Performance modulari, hardware-only, atmosfere notturne.",
+    "immagine": "/images/artists/nyx.jpg"
+  },
+  {
+    "slug": "sole-bianco",
+    "nome": "Sole Bianco",
+    "ruolo": "Producer",
+    "bio": "Dub-techno e ambient. Releases su label indipendenti.",
+    "immagine": "/images/artists/sole-bianco.jpg"
+  },
+  {
+    "slug": "drift-theory",
+    "nome": "Drift Theory",
+    "ruolo": "DJ duo",
+    "bio": "Deep house, minimal, set lunghi e narrativi.",
+    "immagine": "/images/artists/drift-theory.jpg"
+  },
+  {
+    "slug": "kora-ensemble",
+    "nome": "Kora Ensemble",
+    "ruolo": "Live band",
+    "bio": "Sei elementi, contaminazioni jazz ed elettronica.",
+    "immagine": "/images/artists/kora.jpg"
+  },
+  {
+    "slug": "vex",
+    "nome": "Vex",
+    "ruolo": "Live act",
+    "bio": "Synth analogici e drum machines.",
+    "immagine": "/images/artists/vex.jpg"
+  }
+]

@@ -1,0 +1,122 @@
+[
+  {
+    "id": "mm-1",
+    "evento": "Midnight Mass — Opening Night",
+    "data": "2024-11-15",
+    "luogo": "Hangar 47, Milano",
+    "descrizione": "Sei ore di techno in un capannone industriale. Capienza 800, sold out in 36h. Set di chiusura di Lena Volt al sorgere del sole.",
+    "tipo": "foto",
+    "src": "https://picsum.photos/seed/chacho-mm-1/1400/900",
+    "cover": true
+  },
+  {
+    "id": "mm-2",
+    "evento": "Midnight Mass — Opening Night",
+    "data": "2024-11-15",
+    "luogo": "Hangar 47, Milano",
+    "descrizione": "Sei ore di techno in un capannone industriale. Capienza 800, sold out in 36h. Set di chiusura di Lena Volt al sorgere del sole.",
+    "tipo": "foto",
+    "src": "https://picsum.photos/seed/chacho-mm-2/1400/900",
+    "cover": false
+  },
+  {
+    "id": "mm-3",
+    "evento": "Midnight Mass — Opening Night",
+    "data": "2024-11-15",
+    "luogo": "Hangar 47, Milano",
+    "descrizione": "Sei ore di techno in un capannone industriale. Capienza 800, sold out in 36h. Set di chiusura di Lena Volt al sorgere del sole.",
+    "tipo": "foto",
+    "src": "https://picsum.photos/seed/chacho-mm-3/1400/900",
+    "cover": false
+  },
+  {
+    "id": "dc-1",
+    "evento": "Deep Currents",
+    "data": "2024-09-21",
+    "luogo": "Magazzino 9, Bologna",
+    "descrizione": "Notte dub e deep house in un vecchio magazzino del porto fluviale. Sound system custom, 200 persone, nessuna foto col flash.",
+    "tipo": "foto",
+    "src": "https://picsum.photos/seed/chacho-dc-1/1400/900",
+    "cover": true
+  },
+  {
+    "id": "dc-2",
+    "evento": "Deep Currents",
+    "data": "2024-09-21",
+    "luogo": "Magazzino 9, Bologna",
+    "descrizione": "Notte dub e deep house in un vecchio magazzino del porto fluviale. Sound system custom, 200 persone, nessuna foto col flash.",
+    "tipo": "foto",
+    "src": "https://picsum.photos/seed/chacho-dc-2/1400/900",
+    "cover": false
+  },
+  {
+    "id": "dc-3",
+    "evento": "Deep Currents",
+    "data": "2024-09-21",
+    "luogo": "Magazzino 9, Bologna",
+    "descrizione": "Notte dub e deep house in un vecchio magazzino del porto fluviale. Sound system custom, 200 persone, nessuna foto col flash.",
+    "tipo": "foto",
+    "src": "https://picsum.photos/seed/chacho-dc-3/1400/900",
+    "cover": false
+  },
+  {
+    "id": "lt-1",
+    "evento": "Live Tape Sessions",
+    "data": "2024-07-06",
+    "luogo": "Teatro Astra, Torino",
+    "descrizione": "Tre live act registrati direttamente su nastro davanti al pubblico. Performance, sound design, niente schermi.",
+    "tipo": "foto",
+    "src": "https://picsum.photos/seed/chacho-lt-1/1400/900",
+    "cover": true
+  },
+  {
+    "id": "lt-2",
+    "evento": "Live Tape Sessions",
+    "data": "2024-07-06",
+    "luogo": "Teatro Astra, Torino",
+    "descrizione": "Tre live act registrati direttamente su nastro davanti al pubblico. Performance, sound design, niente schermi.",
+    "tipo": "foto",
+    "src": "https://picsum.photos/seed/chacho-lt-2/1400/900",
+    "cover": false
+  },
+  {
+    "id": "lt-3",
+    "evento": "Live Tape Sessions",
+    "data": "2024-07-06",
+    "luogo": "Teatro Astra, Torino",
+    "descrizione": "Tre live act registrati direttamente su nastro davanti al pubblico. Performance, sound design, niente schermi.",
+    "tipo": "foto",
+    "src": "https://picsum.photos/seed/chacho-lt-3/1400/900",
+    "cover": false
+  },
+  {
+    "id": "pl-1",
+    "evento": "Pulse — Outdoor",
+    "data": "2024-06-15",
+    "luogo": "Cava Romana, Verona",
+    "descrizione": "All-day event in una cava di marmo. Alba a alba, due palchi, line-up internazionale.",
+    "tipo": "foto",
+    "src": "https://picsum.photos/seed/chacho-pl-1/1400/900",
+    "cover": true
+  },
+  {
+    "id": "pl-2",
+    "evento": "Pulse — Outdoor",
+    "data": "2024-06-15",
+    "luogo": "Cava Romana, Verona",
+    "descrizione": "All-day event in una cava di marmo. Alba a alba, due palchi, line-up internazionale.",
+    "tipo": "foto",
+    "src": "https://picsum.photos/seed/chacho-pl-2/1400/900",
+    "cover": false
+  },
+  {
+    "id": "pl-3",
+    "evento": "Pulse — Outdoor",
+    "data": "2024-06-15",
+    "luogo": "Cava Romana, Verona",
+    "descrizione": "All-day event in una cava di marmo. Alba a alba, due palchi, line-up internazionale.",
+    "tipo": "video",
+    "src": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+    "cover": false
+  }
+]

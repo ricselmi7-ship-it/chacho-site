@@ -1,0 +1,63 @@
+---
+import Layout from "~/layouts/Layout.astro";
+import EventCard from "~/components/EventCard.astro";
+import eventiData from "~/data/eventi.json";
+import type { Evento } from "~/types";
+
+const eventi = eventiData as Evento[];
+
+const prossimi = eventi
+  .filter((e) => !e.storico)
+  .sort((a, b) => +new Date(a.data) - +new Date(b.data));
+
+const storici = eventi
+  .filter((e) => e.storico)
+  .sort((a, b) => +new Date(b.data) - +new Date(a.data));
+---
+
+<Layout title="Calendario eventi — Chacho">
+  <header class="mb-12">
+    <p class="text-[10px] uppercase tracking-[0.3em] text-muted">Calendario</p>
+    <h1 class="mt-3 font-raw text-5xl uppercase tracking-tight md:text-7xl">
+      Eventi
+    </h1>
+  </header>
+
+  <section class="mb-20">
+    <h2 class="mb-4 text-[10px] uppercase tracking-[0.3em] text-accent">
+      Prossimi
+    </h2>
+    {
+      prossimi.length === 0 ? (
+        <p class="border-t border-white/5 py-8 text-muted">
+          Nessun evento in programma.
+        </p>
+      ) : (
+        <div class="border-b border-white/5">
+          {prossimi.map((evento) => (
+            <EventCard evento={evento} />
+          ))}
+        </div>
+      )
+    }
+  </section>
+
+  <section>
+    <h2 class="mb-4 text-[10px] uppercase tracking-[0.3em] text-muted">
+      Archivio
+    </h2>
+    {
+      storici.length === 0 ? (
+        <p class="border-t border-white/5 py-8 text-muted">
+          Nessun evento in archivio.
+        </p>
+      ) : (
+        <div class="border-b border-white/5 opacity-80">
+          {storici.map((evento) => (
+            <EventCard evento={evento} />
+          ))}
+        </div>
+      )
+    }
+  </section>
+</Layout>

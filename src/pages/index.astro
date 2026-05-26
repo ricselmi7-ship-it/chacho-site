@@ -1,0 +1,556 @@
+---
+import Layout from "~/layouts/Layout.astro";
+import Ticker from "~/components/Ticker.astro";
+import eventiData from "~/data/eventi.json";
+import type { Evento } from "~/types";
+import {
+  formatDataIt,
+  formatGiorno,
+  formatMese,
+  formatAnno,
+  formatLuogo,
+} from "~/lib/format";
+
+const eventi = eventiData as Evento[];
+
+const prossimi = eventi
+  .filter((e) => !e.storico)
+  .sort((a, b) => +new Date(a.data) - +new Date(b.data));
+
+const storici = eventi
+  .filter((e) => e.storico)
+  .sort((a, b) => +new Date(b.data) - +new Date(a.data));
+
+const nextEvent = prossimi[0] ?? null;
+const nextEvents = prossimi.slice(0, 5);
+const storiaPreview = storici.slice(0, 8);
+const galleryPreview = storici.slice(0, 6);
+---
+
+<Layout title="Chacho — Eventi musicali" heroMode>
+  {/* ============================================================
+       SEZIONE 1 — VIDEO HERO FULLSCREEN (placeholder)
+       ============================================================ */}
+  <section class="relative h-screen w-full overflow-hidden bg-black">
+    {/* HERO MEDIA — quando avrai /public/video/hero.mp4, sostituisci
+         l'<img> qui sotto con:
+         <video
+           src="/video/hero.mp4"
+           autoplay muted loop playsinline preload="metadata"
+           class="absolute inset-0 h-full w-full object-cover object-[center_40%]"
+         />
+    */}
+    <img
+      src="/images/hero.jpg"
+      alt=""
+      class="absolute inset-0 h-full w-full object-cover object-[center_40%]"
+    />
+
+    {/* overlay scuro per leggibilità del testo */}
+    <div
+      class="pointer-events-none absolute inset-0"
+      style="background-color: rgba(0,0,0,0.35);"
+    >
+    </div>
+
+    {/* gradiente nero dal basso */}
+    <div
+      class="pointer-events-none absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black via-black/60 to-transparent"
+    >
+    </div>
+
+    {
+      nextEvent && (
+        <div class="absolute inset-x-0 bottom-0 px-6 pb-10 md:pb-14">
+          <div class="mx-auto flex max-w-6xl flex-col items-start gap-6 md:flex-row md:items-end md:justify-between md:gap-8">
+            <div class="flex items-center gap-4 md:gap-5">
+              {nextEvent.immagine && (
+                <a
+                  href={`/eventi/${nextEvent.slug}`}
+                  class="block aspect-[3/4] w-16 flex-shrink-0 overflow-hidden border border-white/10 md:w-20"
+                >
+                  <img
+                    src={nextEvent.immagine}
+                    alt={nextEvent.titolo}
+                    loading="eager"
+                    class="h-full w-full object-cover"
+                  />
+                </a>
+              )}
+              <div class="flex items-baseline gap-3 md:gap-4">
+                <span class="font-raw text-5xl leading-none text-accent md:text-7xl">
+                  {formatGiorno(nextEvent.data)}
+                </span>
+                <div class="flex flex-col">
+                  <span class="text-[10px] uppercase tracking-[0.3em] text-muted">
+                    {formatMese(nextEvent.data)} {formatAnno(nextEvent.data)}
+                  </span>
+                  <span class="text-[10px] uppercase tracking-[0.3em] text-bone">
+                    Next event
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <a
+              href={`/eventi/${nextEvent.slug}`}
+              class="block max-w-2xl text-center md:text-left"
+            >
+              <h2 class="font-raw text-2xl uppercase leading-[0.95] tracking-wide md:text-4xl lg:text-5xl">
+                {nextEvent.titolo}
+              </h2>
+              {nextEvent.sottotitolo && (
+                <p class="mt-2 text-[10px] uppercase tracking-[0.3em] text-accent">
+                  {nextEvent.sottotitolo}
+                </p>
+              )}
+            </a>
+
+            <div class="flex flex-col items-start gap-3 md:items-end">
+              <span class="text-[10px] uppercase tracking-[0.3em] text-muted md:text-right">
+                {formatLuogo(nextEvent)} · {nextEvent.orario}
+              </span>
+              {nextEvent.linkTicket ? (
+                <a
+                  href={nextEvent.linkTicket}
+                  target="_blank"
+                  rel="noopener"
+                  class="border border-accent px-6 py-3 text-[10px] uppercase tracking-[0.3em] text-accent transition-colors hover:bg-accent hover:text-ink"
+                >
+                  Tickets →
+                </a>
+              ) : (
+                <a
+                  href={`/eventi/${nextEvent.slug}`}
+                  class="border border-bone/40 px-6 py-3 text-[10px] uppercase tracking-[0.3em] text-bone hover:border-bone"
+                >
+                  Dettagli →
+                </a>
+              )}
+            </div>
+          </div>
+        </div>
+      )
+    }
+  </section>
+
+  {/* ============================================================
+       SEZIONE 2 — DOPPIO TICKER (direzioni opposte)
+       ============================================================ */}
+  <section class="border-y border-white/5 bg-ink">
+    <Ticker
+      text="Serate ✦ Musica ✦ Cultura ✦ No bullshit"
+      direction="right"
+      variant="raw"
+      speed={45}
+    />
+    <div class="border-t border-white/5"></div>
+    <Ticker
+      text="Club ✦ Bar ✦ Underground ✦ Community"
+      direction="left"
+      variant="raw"
+      speed={45}
+    />
+  </section>
+
+  {/* ============================================================
+       SEZIONE 3 — NEXT EVENTS
+       ============================================================ */}
+  <section class="px-6 py-24 md:py-32">
+    <div class="mx-auto max-w-6xl">
+      <header class="mb-16 flex items-end justify-between">
+        <h2
+          class="font-raw uppercase leading-[0.9] tracking-tight"
+          style="font-size: clamp(3rem, 10vw, 8rem);"
+        >
+          Next<br />Events
+        </h2>
+        <a
+          href="/eventi"
+          class="hidden text-[11px] uppercase tracking-[0.3em] text-muted hover:text-bone md:inline-block"
+        >
+          View all →
+        </a>
+      </header>
+
+      {
+        nextEvents.length === 0 ? (
+          <p class="text-muted">Nessun evento in programma.</p>
+        ) : (
+          <ul class="border-t border-white/10">
+            {nextEvents.map((evento, idx) => (
+              <li class="event-row border-b border-white/10">
+                <a
+                  href={`/eventi/${evento.slug}`}
+                  class="grid grid-cols-12 items-center gap-4 px-2 py-8 transition-colors hover:bg-white/[0.03] md:py-10"
+                >
+                  <span class="col-span-2 font-raw text-sm tracking-widest text-muted md:col-span-1 md:text-base">
+                    {String(idx + 1).padStart(2, "0")}
+                  </span>
+
+                  <div class="col-span-10 md:col-span-3">
+                    <span class="font-raw text-xl uppercase tracking-wide text-bone md:text-2xl">
+                      {formatDataIt(evento.data)}
+                    </span>
+                  </div>
+
+                  <div class="col-span-12 md:col-span-5">
+                    <h3
+                      class="font-raw uppercase leading-[0.95] tracking-wide text-bone"
+                      style="font-size: clamp(1.5rem, 3vw, 2.5rem);"
+                    >
+                      {evento.titolo}
+                    </h3>
+                    {evento.sottotitolo && (
+                      <p class="mt-1 text-[10px] uppercase tracking-[0.3em] text-accent">
+                        {evento.sottotitolo}
+                      </p>
+                    )}
+                    {evento.tags && evento.tags.length > 0 && (
+                      <div class="mt-2 flex flex-wrap gap-2">
+                        {evento.tags.map((tag) => (
+                          <span class="text-[10px] uppercase tracking-[0.3em] text-accent">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  <div class="col-span-12 flex items-center justify-between gap-3 md:col-span-3 md:flex-col md:items-end md:justify-center md:gap-2 md:text-right">
+                    <span class="text-[10px] uppercase tracking-[0.3em] text-muted">
+                      {formatLuogo(evento)} · {evento.orario}
+                    </span>
+                    {evento.linkTicket ? (
+                      <span class="event-tickets text-[10px] uppercase tracking-[0.3em] text-accent">
+                        Tickets →
+                      </span>
+                    ) : (
+                      <span class="event-arrow text-[10px] uppercase tracking-[0.3em] text-muted">
+                        →
+                      </span>
+                    )}
+                  </div>
+                </a>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+
+      <div class="mt-12 text-center md:hidden">
+        <a
+          href="/eventi"
+          class="text-[11px] uppercase tracking-[0.3em] text-muted"
+        >
+          View all →
+        </a>
+      </div>
+    </div>
+
+    <style>
+      .event-row a .event-arrow,
+      .event-row a .event-tickets {
+        transition:
+          transform 0.25s ease,
+          color 0.25s ease;
+      }
+      .event-row a:hover .event-arrow,
+      .event-row a:hover .event-tickets {
+        transform: translateX(4px);
+        color: var(--color-accent);
+      }
+    </style>
+  </section>
+
+  {/* ============================================================
+       SEZIONE 4 — LA STORIA (carousel orizzontale, dati storico)
+       ============================================================ */}
+  <section class="bg-ink py-24 md:py-32">
+    <div class="mx-auto max-w-6xl px-6">
+      <header class="mb-12 flex items-end justify-between">
+        <div>
+          <p class="text-[10px] uppercase tracking-[0.3em] text-muted">
+            Eventi passati
+          </p>
+          <h2
+            class="mt-3 font-raw uppercase leading-[0.9] tracking-tight"
+            style="font-size: clamp(3rem, 9vw, 7rem);"
+          >
+            La storia
+          </h2>
+        </div>
+      </header>
+    </div>
+
+    {
+      storiaPreview.length === 0 ? (
+        <p class="px-6 text-muted">Archivio in costruzione.</p>
+      ) : (
+        <div
+          id="history-carousel"
+          class="history-carousel scrollbar-hide flex gap-4 overflow-x-auto px-6 pb-4 md:gap-6 md:px-12"
+        >
+          {storiaPreview.map((event) => (
+            <a
+              href={`/eventi/${event.slug}`}
+              class="storico-card group relative aspect-[3/4] w-[260px] flex-shrink-0 overflow-hidden bg-white/[0.04] md:w-[320px]"
+            >
+              {event.immagine && (
+                <img
+                  src={event.immagine}
+                  alt={event.titolo}
+                  loading="lazy"
+                  class="absolute inset-0 h-full w-full object-cover"
+                />
+              )}
+              {!event.immagine && (
+                <div class="absolute inset-0 flex flex-col items-center justify-center gap-3 p-6 text-center">
+                  <span class="text-[10px] uppercase tracking-[0.3em] text-accent">
+                    {formatDataIt(event.data)}
+                  </span>
+                  <span class="font-raw text-2xl uppercase leading-tight tracking-wide text-bone md:text-3xl">
+                    {event.titolo}
+                  </span>
+                  <span class="text-[10px] uppercase tracking-[0.3em] text-muted">
+                    {formatLuogo(event)}
+                  </span>
+                </div>
+              )}
+              {event.immagine && (
+                <div class="pointer-events-none absolute inset-x-0 bottom-0 flex flex-col gap-1 bg-gradient-to-t from-ink via-ink/70 to-transparent p-5 text-left">
+                  <span class="text-[10px] uppercase tracking-[0.3em] text-accent">
+                    {formatDataIt(event.data)}
+                  </span>
+                  <span class="font-raw text-xl uppercase leading-tight tracking-wide text-bone md:text-2xl">
+                    {event.titolo}
+                  </span>
+                  <span class="text-[10px] uppercase tracking-[0.3em] text-bone/70">
+                    {formatLuogo(event)}
+                  </span>
+                </div>
+              )}
+              <div class="storico-overlay pointer-events-none absolute inset-0 flex items-start justify-end bg-ink/40 p-6 opacity-0 transition-opacity duration-300">
+                <span class="font-raw text-lg uppercase tracking-wide text-bone">
+                  Scopri →
+                </span>
+              </div>
+            </a>
+          ))}
+        </div>
+      )
+    }
+
+    <style>
+      .scrollbar-hide {
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        scroll-snap-type: x mandatory;
+      }
+      .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+      }
+      .storico-card {
+        scroll-snap-align: start;
+        filter: contrast(1.1) saturate(0.85);
+        transition: transform 0.4s ease;
+      }
+      .storico-card:hover {
+        transform: scale(1.02);
+      }
+      .storico-card:hover .storico-overlay {
+        opacity: 1;
+      }
+      .history-carousel.dragging {
+        cursor: grabbing;
+        user-select: none;
+      }
+      .history-carousel {
+        cursor: grab;
+      }
+    </style>
+
+    <script>
+      const slider = document.getElementById("history-carousel");
+      if (slider) {
+        let isDown = false;
+        let startX = 0;
+        let scrollLeft = 0;
+        slider.addEventListener("mousedown", (e) => {
+          isDown = true;
+          slider.classList.add("dragging");
+          startX = e.pageX - slider.offsetLeft;
+          scrollLeft = slider.scrollLeft;
+        });
+        const stop = () => {
+          isDown = false;
+          slider.classList.remove("dragging");
+        };
+        slider.addEventListener("mouseleave", stop);
+        slider.addEventListener("mouseup", stop);
+        slider.addEventListener("mousemove", (e) => {
+          if (!isDown) return;
+          e.preventDefault();
+          const x = e.pageX - slider.offsetLeft;
+          const walk = (x - startX) * 1.5;
+          slider.scrollLeft = scrollLeft - walk;
+        });
+      }
+    </script>
+  </section>
+
+  {/* ============================================================
+       SEZIONE 5 — MANIFESTO (anteprima split)
+       ============================================================ */}
+  <section class="bg-ink py-24 md:py-32">
+    <div
+      class="mx-auto grid max-w-6xl gap-12 px-6 md:grid-cols-2 md:items-center md:gap-16"
+    >
+      <div class="order-1 md:order-2">
+        <div
+          class="relative aspect-[4/5] w-full overflow-hidden bg-white/[0.04]"
+        >
+          <div
+            class="absolute inset-0 flex items-center justify-center"
+            style="filter: contrast(1.1) saturate(0.85);"
+          >
+            <span class="font-raw text-3xl uppercase tracking-wide text-muted">
+              About — Video
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="order-2 md:order-1">
+        <p class="text-[10px] uppercase tracking-[0.3em] text-muted">
+          Chi siamo
+        </p>
+        <h2
+          class="mt-4 font-raw uppercase leading-[0.95] tracking-tight"
+          style="font-size: clamp(2.25rem, 6vw, 4.5rem);"
+        >
+          Niente è più potente di una stanza, un suono,
+          <span class="text-accent">mille persone.</span>
+        </h2>
+
+        <div class="mt-8 space-y-3">
+          <p
+            class="font-raw uppercase leading-[1.1] text-bone/90"
+            style="font-size: clamp(1.1rem, 2vw, 1.5rem);"
+          >
+            Facciamo eventi per chi ascolta davvero.
+          </p>
+          <p
+            class="font-raw uppercase leading-[1.1] text-bone/90"
+            style="font-size: clamp(1.1rem, 2vw, 1.5rem);"
+          >
+            Niente sponsor invadenti. Niente bottiglia al tavolo.
+          </p>
+          <p
+            class="font-raw uppercase leading-[1.1] text-bone/90"
+            style="font-size: clamp(1.1rem, 2vw, 1.5rem);"
+          >
+            Solo line-up scelte una per una.
+          </p>
+          <p
+            class="font-raw uppercase leading-[1.1] text-accent"
+            style="font-size: clamp(1.1rem, 2vw, 1.5rem);"
+          >
+            La musica è il motivo. Il resto è decorazione.
+          </p>
+        </div>
+
+        <a
+          href="/manifesto"
+          class="mt-10 inline-block border border-bone/30 px-7 py-3 text-[11px] uppercase tracking-[0.3em] text-bone transition-colors hover:bg-bone hover:text-ink"
+        >
+          Leggi il manifesto →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  {/* ============================================================
+       SEZIONE 6 — GALLERY ANTEPRIMA (eventi storici)
+       ============================================================ */}
+  <section class="bg-ink py-24 md:py-32">
+    <div class="mx-auto max-w-6xl px-6">
+      <header class="mb-12 flex items-end justify-between">
+        <h2
+          class="font-raw uppercase leading-[0.9] tracking-tight"
+          style="font-size: clamp(2.5rem, 8vw, 6rem);"
+        >
+          Gallery
+        </h2>
+        <a
+          href="/gallery"
+          class="hidden text-[11px] uppercase tracking-[0.3em] text-muted hover:text-bone md:inline-block"
+        >
+          Vedi tutta la gallery →
+        </a>
+      </header>
+
+      {
+        galleryPreview.length === 0 ? (
+          <p class="text-muted">Gallery in arrivo.</p>
+        ) : (
+          <div class="grid grid-cols-2 gap-1 md:grid-cols-3 md:gap-2">
+            {galleryPreview.map((event, i) => {
+              const aspects = [
+                "aspect-[4/5]",
+                "aspect-[3/4]",
+                "aspect-[1/1]",
+                "aspect-[3/4]",
+                "aspect-[4/5]",
+                "aspect-[1/1]",
+              ];
+              return (
+                <a
+                  href={`/eventi/${event.slug}`}
+                  class="gallery-tile group relative block w-full overflow-hidden bg-white/[0.04]"
+                  class:list={[aspects[i % aspects.length]]}
+                  style="filter: contrast(1.05) saturate(0.92);"
+                >
+                  {event.immagine ? (
+                    <img
+                      src={event.immagine}
+                      alt={event.titolo}
+                      loading="lazy"
+                      class="absolute inset-0 h-full w-full object-cover"
+                    />
+                  ) : (
+                    <div class="absolute inset-0 flex flex-col items-center justify-center gap-2 p-4 text-center">
+                      <span class="font-raw text-base uppercase tracking-wide text-muted md:text-lg">
+                        {event.titolo}
+                      </span>
+                      <span class="text-[9px] uppercase tracking-[0.3em] text-muted">
+                        {formatDataIt(event.data)}
+                      </span>
+                    </div>
+                  )}
+                  <div class="pointer-events-none absolute inset-0 flex flex-col items-start justify-end gap-1 bg-gradient-to-t from-ink via-ink/30 to-transparent p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                    <span class="font-raw text-sm uppercase tracking-wide text-bone md:text-base">
+                      {event.titolo}
+                    </span>
+                    <span class="text-[9px] uppercase tracking-[0.3em] text-muted">
+                      {formatLuogo(event)}
+                    </span>
+                  </div>
+                </a>
+              );
+            })}
+          </div>
+        )
+      }
+
+      <div class="mt-12 text-center md:hidden">
+        <a
+          href="/gallery"
+          class="text-[11px] uppercase tracking-[0.3em] text-muted"
+        >
+          Vedi tutta la gallery →
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,19 @@
+---
+import Layout from "~/layouts/Layout.astro";
+import ArtistCard from "~/components/ArtistCard.astro";
+import artistiData from "~/data/artisti.json";
+import type { Artista } from "~/types";
+
+const artisti = artistiData as Artista[];
+---
+
+<Layout title="Artisti — Chacho">
+  <header class="mb-12">
+    <p class="text-xs uppercase tracking-widest text-muted">Roster</p>
+    <h1 class="mt-3 font-display text-4xl md:text-6xl">Artisti</h1>
+  </header>
+
+  <div class="border-b border-white/5">
+    {artisti.map((artista) => <ArtistCard artista={artista} />)}
+  </div>
+</Layout>

@@ -1,0 +1,76 @@
+---
+import Layout from "~/layouts/Layout.astro";
+import Ticker from "~/components/Ticker.astro";
+---
+
+<Layout
+  title="Manifesto — Chacho"
+  description="Niente sponsor invadenti. Niente filtri. Solo musica."
+>
+  <section
+    class="-mx-6 flex min-h-[75vh] flex-col justify-center px-6 py-8"
+  >
+    <p class="mb-8 text-xs uppercase tracking-[0.3em] text-muted">
+      Manifesto
+    </p>
+    <h1
+      class="font-display uppercase leading-[0.95] tracking-tight text-bone"
+      style="font-size: clamp(2.5rem, 9vw, 7.5rem);"
+    >
+      Niente è più potente<br />
+      di una stanza,<br />
+      un suono,<br />
+      <span class="text-accent">mille persone.</span>
+    </h1>
+  </section>
+
+  <section class="mt-24 grid gap-10 border-t border-white/5 pt-16 md:grid-cols-12">
+    <div class="md:col-span-3">
+      <p class="text-xs uppercase tracking-[0.3em] text-muted">
+        Cosa facciamo
+      </p>
+    </div>
+    <div class="space-y-8 md:col-span-9">
+      <p
+        class="font-display uppercase leading-[1.05] tracking-tight"
+        style="font-size: clamp(1.5rem, 3.5vw, 2.75rem);"
+      >
+        Facciamo eventi per chi ascolta davvero.
+      </p>
+      <p
+        class="font-display uppercase leading-[1.05] tracking-tight text-bone/90"
+        style="font-size: clamp(1.5rem, 3.5vw, 2.75rem);"
+      >
+        Niente sponsor invadenti.<br />
+        Niente bottiglia al tavolo.<br />
+        Niente filtri.
+      </p>
+      <p
+        class="font-display uppercase leading-[1.05] tracking-tight text-bone/90"
+        style="font-size: clamp(1.5rem, 3.5vw, 2.75rem);"
+      >
+        Line-up scelte una per una.<br />
+        Impianti che funzionano.<br />
+        Luci essenziali.
+      </p>
+      <p
+        class="font-display uppercase leading-[1.05] tracking-tight text-bone/90"
+        style="font-size: clamp(1.5rem, 3.5vw, 2.75rem);"
+      >
+        Preferiamo mille persone dentro<br />
+        a cinquemila fuori.
+      </p>
+      <p
+        class="font-display uppercase leading-[1.05] tracking-tight text-accent"
+        style="font-size: clamp(1.5rem, 3.5vw, 2.75rem);"
+      >
+        La musica è il motivo.<br />
+        Tutto il resto è decorazione.
+      </p>
+    </div>
+  </section>
+
+  <div class="mt-32 -mx-6">
+    <Ticker text="No bullshit — Solo musica" />
+  </div>
+</Layout>
