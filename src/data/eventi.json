@@ -24,7 +24,7 @@
     "citta": "Besozzo",
     "descrizione": "La fine della stagione. Il closing che chiude il cerchio — musica, persone, un posto che sentiamo nostro.",
     "artisti": [],
-    "immagine": "/images/storici/closing-ghota-room.jpg",
+    "immagine": null,
     "linkTicket": null,
     "tags": ["closing", "club"],
     "storico": false
@@ -36,11 +36,11 @@
     "data": "2026-05-16",
     "orario": "23:00 - 06:00",
     "luogo": "Ghota Room",
-    "citta": "Besozzo",
+    "citta": "Sesto Calende",
     "descrizione": "L'ultima notte di Chacho alla Ghota Room. La chiusura di una stagione — Leo Pozzi e Selmi per salutare come si deve.",
     "artisti": ["Leo Pozzi", "Selmi"],
     "partner": ["Chacho", "Ghota Room"],
-    "immagine": null,
+    "immagine": "/images/storici/closing-ghota-room.jpg",
     "linkTicket": null,
     "tags": ["closing", "club"],
     "storico": true
